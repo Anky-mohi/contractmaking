@@ -218,7 +218,7 @@ const GeradorDeContrato = () => {
                 <p>Por HIMALAYAS TECH:</p>
                 <div class="signature-line">
                   <p>Fernanda</p>
-                  <p>Cargo: Diretora</p>
+                <p>CPF/CNPJ: 348.213.608-45</p>
                   <p>Data: ${new Date().toLocaleDateString()}</p>
                 </div>
               </div>
@@ -231,7 +231,7 @@ const GeradorDeContrato = () => {
                 </div>
               </div>
             </div>
-
+<p>“Obrigada por confiar em nosso trabalho e por nos permitir fazer parte deste projeto com você! 💙 Aqui na Himalayas Techies, somos apaixonados pelo que fazemos ❤️ e queremos dividir essa paixão com você. Vamos juntos transformar essa ideia em realidade! 🚀♥️</p>
             <div class="qr-code">
               <p><strong>QR Code:</strong></p>
               <img src="${qrCodeImage}" alt="QR Code" />

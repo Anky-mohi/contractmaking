@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import logo from "../src/img/hmlogo.png"; // Ajuste o caminho com base em onde seu logo está localizado
+import qrCodeImage from "../src/img/12.jpeg"; // Ajuste o caminho para o arquivo da imagem QR code
 
 const GeradorDeContrato = () => {
   const [dadosFormulario, setDadosFormulario] = useState({
@@ -10,7 +11,9 @@ const GeradorDeContrato = () => {
     descricaoProjeto: '',
     dataInicio: '',
     dataFim: '',
-    valor: ''
+    valor: '',
+    cpfCnpjCliente: '', // CPF/CNPJ do Cliente
+    enderecoCliente: '' // Endereço do Cliente
   });
 
   const handleAlteracaoInput = (e) => {
@@ -23,7 +26,7 @@ const GeradorDeContrato = () => {
 
   const gerarContrato = () => {
     const referenciaContrato = `HT-${new Date().getFullYear()}-${String(Math.floor(Math.random() * 1000)).padStart(3, '0')}`;
-    
+
     const conteudoContrato = `
       <!DOCTYPE html>
       <html>
@@ -135,6 +138,14 @@ const GeradorDeContrato = () => {
               font-size: 12px;
               color: #A0AEC0;
             }
+            .qr-code {
+              margin-top: 30px;
+              text-align: center;
+            }
+            .qr-code img {
+              width: 150px;
+              height: 150px;
+            }
             @media print {
               body { background: white; padding: 0; }
               .container { box-shadow: none; }
@@ -158,13 +169,17 @@ const GeradorDeContrato = () => {
                   Soluções em Tecnologia Digital<br/>
                   Contato: Fernanda<br/>
                   Telefone: +55 11 947727979<br/>
-                  Website: www.himalayastechies.com</p>
+                  Website: www.himalayastechies.com<br/>
+                  CPF/CNPJ: 348.213.608-45<br/>
+                  Endereço: Av Marcos Penteado, 939, Alphaville Barueri SP</p>
                 </div>
                 <div class="party-box">
                   <h3>Cliente:</h3>
                   <p><strong>${dadosFormulario.nomeCliente}</strong><br/>
                   Email: ${dadosFormulario.emailCliente}<br/>
                   Telefone: ${dadosFormulario.telefoneCliente}</p>
+                  <p><strong>CPF/CNPJ:</strong> ${dadosFormulario.cpfCnpjCliente}</p>
+                  <p><strong>Endereço:</strong> ${dadosFormulario.enderecoCliente}</p>
                 </div>
               </div>
             </div>
@@ -217,6 +232,11 @@ const GeradorDeContrato = () => {
               </div>
             </div>
 
+            <div class="qr-code">
+              <p><strong>QR Code:</strong></p>
+              <img src="${qrCodeImage}" alt="QR Code" />
+            </div>
+
             <div class="footer">
               <p>HIMALAYAS TECH - Av Marcos Penteado de Ulhoa Rodrigues , 939 , Alphaville Barueri SP</p>
               <p class="footer-page">Página 1 de 1</p>
@@ -238,154 +258,118 @@ const GeradorDeContrato = () => {
       margin: '0 auto',
       padding: '20px',
       fontFamily: 'Arial, sans-serif',
-      backgroundColor: 'white',
-      borderRadius: '8px',
-      boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
     },
     header: {
       textAlign: 'center',
       marginBottom: '30px',
-      padding: '20px',
-      borderBottom: '2px solid #ff6f61'
     },
     form: {
       display: 'flex',
       flexDirection: 'column',
-      gap: '20px'
-    },
-    section: {
-      backgroundColor: '#f8fafc',
-      padding: '20px',
-      borderRadius: '6px',
-      marginBottom: '20px'
-    },
-    sectionTitle: {
-      color: '#ff6f61',
-      marginBottom: '15px',
-      fontSize: '18px',
-      fontWeight: 'bold'
-    },
-    label: {
-      display: 'block',
-      marginBottom: '8px',
-      fontSize: '14px'
     },
     input: {
-      width: '100%',
       padding: '10px',
+      border: '1px solid #ddd',
+      borderRadius: '4px',
       marginBottom: '15px',
-      border: '1px solid #ccc',
-      borderRadius: '5px'
-    },
-    textarea: {
-      width: '100%',
-      padding: '10px',
-      border: '1px solid #ccc',
-      borderRadius: '5px',
-      resize: 'vertical',
-      height: '150px'
     },
     button: {
-      padding: '10px 20px',
-      backgroundColor: '#FF7F50',
+      padding: '12px 20px',
+      backgroundColor: '#ff6f61',
       color: 'white',
-      fontSize: '16px',
       border: 'none',
-      borderRadius: '5px',
-      cursor: 'pointer'
-    }
+      borderRadius: '4px',
+      cursor: 'pointer',
+      fontSize: '16px',
+    },
   };
 
   return (
     <div style={styles.container}>
       <div style={styles.header}>
+        <img src={logo} alt="Logo" style={{ width: '150px' }} />
         <h1>Gerador de Contrato</h1>
       </div>
-
-      <div>
-        <form onSubmit={(e) => { e.preventDefault(); gerarContrato(); }} style={styles.form}>
-          <div style={styles.section}>
-            <h2 style={styles.sectionTitle}>Informações do Cliente</h2>
-            <label style={styles.label}>Nome do Cliente</label>
-            <input
-              type="text"
-              name="nomeCliente"
-              value={dadosFormulario.nomeCliente}
-              onChange={handleAlteracaoInput}
-              style={styles.input}
-              required
-            />
-            <label style={styles.label}>Email do Cliente</label>
-            <input
-              type="email"
-              name="emailCliente"
-              value={dadosFormulario.emailCliente}
-              onChange={handleAlteracaoInput}
-              style={styles.input}
-              required
-            />
-            <label style={styles.label}>Telefone do Cliente</label>
-            <input
-              type="text"
-              name="telefoneCliente"
-              value={dadosFormulario.telefoneCliente}
-              onChange={handleAlteracaoInput}
-              style={styles.input}
-              required
-            />
-          </div>
-
-          <div style={styles.section}>
-            <h2 style={styles.sectionTitle}>Informações do Projeto</h2>
-            <label style={styles.label}>Título do Projeto</label>
-            <input
-              type="text"
-              name="tituloProjeto"
-              value={dadosFormulario.tituloProjeto}
-              onChange={handleAlteracaoInput}
-              style={styles.input}
-              required
-            />
-            <label style={styles.label}>Descrição do Projeto</label>
-            <textarea
-              name="descricaoProjeto"
-              value={dadosFormulario.descricaoProjeto}
-              onChange={handleAlteracaoInput}
-              style={styles.textarea}
-              required
-            />
-            <label style={styles.label}>Data de Início</label>
-            <input
-              type="date"
-              name="dataInicio"
-              value={dadosFormulario.dataInicio}
-              onChange={handleAlteracaoInput}
-              style={styles.input}
-              required
-            />
-            <label style={styles.label}>Data de Término</label>
-            <input
-              type="date"
-              name="dataFim"
-              value={dadosFormulario.dataFim}
-              onChange={handleAlteracaoInput}
-              style={styles.input}
-              required
-            />
-            <label style={styles.label}>Valor do Projeto</label>
-            <input
-              type="text"
-              name="valor"
-              value={dadosFormulario.valor}
-              onChange={handleAlteracaoInput}
-              style={styles.input}
-              required
-            />
-          </div>
-
-          <button type="submit" style={styles.button}>Gerar Contrato</button>
-        </form>
-      </div>
+      <form style={styles.form} onSubmit={(e) => e.preventDefault()}>
+        <input
+          type="text"
+          name="nomeCliente"
+          placeholder="Nome do Cliente"
+          value={dadosFormulario.nomeCliente}
+          onChange={handleAlteracaoInput}
+          style={styles.input}
+        />
+        <input
+          type="email"
+          name="emailCliente"
+          placeholder="Email do Cliente"
+          value={dadosFormulario.emailCliente}
+          onChange={handleAlteracaoInput}
+          style={styles.input}
+        />
+        <input
+          type="text"
+          name="telefoneCliente"
+          placeholder="Telefone do Cliente"
+          value={dadosFormulario.telefoneCliente}
+          onChange={handleAlteracaoInput}
+          style={styles.input}
+        />
+        <input
+          type="text"
+          name="tituloProjeto"
+          placeholder="Título do Projeto"
+          value={dadosFormulario.tituloProjeto}
+          onChange={handleAlteracaoInput}
+          style={styles.input}
+        />
+        <textarea
+          name="descricaoProjeto"
+          placeholder="Descrição do Projeto"
+          value={dadosFormulario.descricaoProjeto}
+          onChange={handleAlteracaoInput}
+          style={styles.input}
+        />
+        <input
+          type="date"
+          name="dataInicio"
+          value={dadosFormulario.dataInicio}
+          onChange={handleAlteracaoInput}
+          style={styles.input}
+        />
+        <input
+          type="date"
+          name="dataFim"
+          value={dadosFormulario.dataFim}
+          onChange={handleAlteracaoInput}
+          style={styles.input}
+        />
+        <input
+          type="text"
+          name="valor"
+          placeholder="Valor do Projeto"
+          value={dadosFormulario.valor}
+          onChange={handleAlteracaoInput}
+          style={styles.input}
+        />
+        <input
+          type="text"
+          name="cpfCnpjCliente"
+          placeholder="CPF/CNPJ do Cliente"
+          value={dadosFormulario.cpfCnpjCliente}
+          onChange={handleAlteracaoInput}
+          style={styles.input}
+        />
+        <input
+          type="text"
+          name="enderecoCliente"
+          placeholder="Endereço do Cliente"
+          value={dadosFormulario.enderecoCliente}
+          onChange={handleAlteracaoInput}
+          style={styles.input}
+        />
+        <button onClick={gerarContrato} style={styles.button}>Gerar Contrato</button>
+      </form>
     </div>
   );
 };

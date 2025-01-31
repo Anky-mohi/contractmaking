@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import logo from "../src/img/hmlogo.png"; // Ajuste o caminho com base em onde seu logo está localizado
-import qrCodeImage from "../src/img/12.jpeg"; // Ajuste o caminho para o arquivo da imagem QR code
+import logo from "../src/img/hmlogo.jpg"; // Ajuste o caminho com base em onde seu logo está localizado
+import qrCodeImage from "../src/img/12.jpg"; // Ajuste o caminho para o arquivo da imagem QR code
 
 const GeradorDeContrato = () => {
   const [dadosFormulario, setDadosFormulario] = useState({
